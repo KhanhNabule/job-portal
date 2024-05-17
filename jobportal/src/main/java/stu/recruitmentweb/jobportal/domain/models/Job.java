@@ -25,6 +25,9 @@ public class Job extends DateAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "company_name")
+    private String companyName;
+
     @Column(name = "job_title")
     private String jobTitle;
     private String level;
@@ -61,6 +64,7 @@ public class Job extends DateAudit {
     private List<Recruitment> recruitments;
 
     public Job(JobRequest jobRequest,Category category, Recruiter recruiter) {
+        this.companyName = jobRequest.getCompanyName();
         this.jobTitle = jobRequest.getJobTitle();
         this.level = jobRequest.getLevel();
         this.typesOfCV = jobRequest.getTypesOfCV();
@@ -76,4 +80,6 @@ public class Job extends DateAudit {
         this.category = category;
         this.recruiter = recruiter;
     }
+
+
 }

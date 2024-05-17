@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Footer from "../Footer";
 import { getJobById, submitRecruiment } from "../../util/APIUtils";
 import Alert from "react-s-alert";
-
+import "../Home.css";
 class JobDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -61,10 +61,7 @@ class JobDetails extends React.Component {
     return (
       <main>
         <div class="slider-area ">
-          <div
-            class="single-slider section-overly slider-height2 d-flex align-items-center"
-            data-background="assets/img/hero/about.jpg"
-          >
+          <div class="single-slider section-overly slider-height2 d-flex align-items-center image-background">
             <div class="container">
               <div class="row">
                 <div class="col-xl-12">
@@ -82,26 +79,38 @@ class JobDetails extends React.Component {
             <div class="row justify-content-between">
               <div class="col-xl-7 col-lg-8">
                 <div class="single-job-items mb-50">
-                  <div class="job-items">
-                    <div class="company-img company-img-details">
-                      <a href="#">
-                        <img
-                          src="../../../public/assets/img/icon/job-list3.png"
-                          alt=""
-                        />
-                      </a>
+                  <div>
+                    <div class="company-img">
+                      <img
+                        src={
+                          this.state.image === null
+                            ? ""
+                            : this.state.image.indexOf("http") !== -1
+                            ? this.state.image
+                            : `http://localhost:8080/image/` +
+                              this.state.image.replace(
+                                "photographer/files/",
+                                ""
+                              )
+                        }
+                        alt="Logo"
+                        style={{
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      />
                     </div>
-                    <div class="job-tittle">
-                      <a href="#">
-                        <h4>{list.jobTitle}</h4>
-                      </a>
+                    <div
+                      class="job-tittle job-tittle2"
+                      style={{ width: "600px" }}
+                    >
+                      <ul>
+                        <h4 style={{ fontSize: "30px" }}>{list.jobTitle}</h4>
+                      </ul>
                       <ul>
                         <li>
                           <i class="fas fa-map-marker-alt"></i>
                           {list.address}
-                        </li>
-                        <li>
-                          {list.minSalary}VND - {list.maxSalary}VND
                         </li>
                       </ul>
                     </div>
@@ -109,27 +118,45 @@ class JobDetails extends React.Component {
                 </div>
 
                 <div class="job-post-details">
-                  <div class="post-details1 mb-50">
-                    <div class="small-section-tittle">
+                  {this.props.authenticated ? (
+                    <a
+                      href="#"
+                      onClick={() => this.handleRecruitment()}
+                      style={{ color: "white" }}
+                    >
+                      <div className="card bg-success text-white shadow submit">
+                        <div className="card-body hover-effect">Ứng tuyển</div>
+                      </div>
+                    </a>
+                  ) : (
+                    "Vui lòng đăng nhập trước khi ứng tuyển."
+                  )}
+
+                  <div className="post-details1 mb-50">
+                    <div className="small-section-tittle">
                       <h4>Mô Tả Công Việc:</h4>
                     </div>
-                    <p>{list.description}</p>
+                    <p style={{ whiteSpace: "pre-line", color: "black" }}>
+                      {list.description}
+                    </p>
                   </div>
                   <div class="post-details2  mb-50">
                     <div class="small-section-tittle">
                       <h4>Yêu Cầu:</h4>
                     </div>
-                    <ul>
-                      <li>{list.requireJob}</li>
-                    </ul>
+
+                    <p style={{ whiteSpace: "pre-line", color: "black" }}>
+                      {list.requireJob}
+                    </p>
                   </div>
                   <div class="post-details2  mb-50">
                     <div class="small-section-tittle">
                       <h4>Phúc Lợi:</h4>
                     </div>
-                    <ul>
-                      <li>{list.welfare}</li>
-                    </ul>
+
+                    <p style={{ whiteSpace: "pre-line", color: "black" }}>
+                      {list.welfare}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -140,14 +167,17 @@ class JobDetails extends React.Component {
                     <h4>Công việc:</h4>
                   </div>
                   <ul>
-                    <li>
+                    {/* <li>
                       Địa chỉ : <span>{list.address}</span>
+                    </li> */}
+                    <li>
+                      Kinh nghiệm : <span>Yêu cầu {list.level}</span>
                     </li>
                     <li>
-                      Level : <span>{list.level}</span>
-                    </li>
-                    <li>
-                      Lương : <span>Up to {list.maxSalary} VND</span>
+                      Lương :{" "}
+                      <span>
+                        {list.minSalary} - {list.maxSalary} triệu
+                      </span>
                     </li>
                     <li>
                       Hạn ứng tuyển :{" "}
@@ -160,7 +190,7 @@ class JobDetails extends React.Component {
                       </span>
                     </li>
                   </ul>
-                  {this.props.authenticated ? (
+                  {/* {this.props.authenticated ? (
                     <div class="apply-btn2">
                       <a
                         href="#"
@@ -172,13 +202,12 @@ class JobDetails extends React.Component {
                     </div>
                   ) : (
                     "Vui lòng đăng nhập trước khi ứng tuyển."
-                  )}
+                  )} */}
                 </div>
                 <div class="post-details4  mb-50">
                   <div class="small-section-tittle">
-                    <h4>Thông tin công ty</h4>
+                    <h3>Thông tin công ty</h3>
                   </div>
-                  <span>Hành trình đồng hàng Photographer</span>
                   <p>{this.state.description}</p>
                   <img
                     src={

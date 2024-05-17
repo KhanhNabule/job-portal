@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "./Footer";
 import Alert from "react-s-alert";
 import { sendMailOfContact } from "../util/APIUtils";
-
+import Home from "./Home.css";
 class Contact extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +43,7 @@ class Contact extends React.Component {
         <div class="container-xxl py-5">
           <div class="container">
             <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-              Contact For Any Query
+              Thông tin liên hệ
             </h1>
             <div class="row g-4">
               <div class="col-12">
@@ -56,7 +56,7 @@ class Contact extends React.Component {
                       >
                         <i class="fa fa-map-marker-alt text-primary"></i>
                       </div>
-                      <span>123 Street, New York, USA</span>
+                      <span>Thanh Xuân, Hà Nội</span>
                     </div>
                   </div>
                   <div class="col-md-4 wow fadeIn" data-wow-delay="0.3s">
@@ -67,7 +67,7 @@ class Contact extends React.Component {
                       >
                         <i class="fa fa-envelope-open text-primary"></i>
                       </div>
-                      <span>info@example.com</span>
+                      <span>khanhvuduyit@gmail.com</span>
                     </div>
                   </div>
                   <div class="col-md-4 wow fadeIn" data-wow-delay="0.5s">
@@ -78,7 +78,7 @@ class Contact extends React.Component {
                       >
                         <i class="fa fa-phone-alt text-primary"></i>
                       </div>
-                      <span>+012 345 6789</span>
+                      <span>+0944923877</span>
                     </div>
                   </div>
                 </div>
@@ -97,13 +97,8 @@ class Contact extends React.Component {
               <div class="col-md-6">
                 <div class="wow fadeInUp" data-wow-delay="0.5s">
                   <p class="mb-4">
-                    The contact form is currently inactive. Get a functional and
-                    working contact form with Ajax & PHP in a few minutes. Just
-                    copy and paste the files, add a little code and you're done.{" "}
-                    <a href="https://htmlcodex.com/contact-form">
-                      Download Now
-                    </a>
-                    .
+                    Nếu có bất cứ thắc mắc hay khiếu nại nào, hãy liên hệ với
+                    chúng tôi bằng cách điền biểu mẫu phía dưới.{" "}
                   </p>
                   <form onSubmit={this.handleSubmit}>
                     <div class="row g-3">
@@ -165,10 +160,10 @@ class Contact extends React.Component {
                       </div>
                       <div class="col-12">
                         <button
-                          class="btn btn-primary w-100 py-3"
+                          class="btn btn-primary w-100 py-3 x-1"
                           type="submit"
                         >
-                          Send Message
+                          <span class="align-middle">Send Message</span>
                         </button>
                       </div>
                     </div>

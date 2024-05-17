@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Setter
 public class JobRequest {
     @NotNull
+    private String companyName;
+    @NotNull
     private String jobTitle;
     @NotNull
     private String level;

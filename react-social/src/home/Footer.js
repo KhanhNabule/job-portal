@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 
 const Footer = () => {
-  useEffect(() => {
-    (function (d, m) {
-      var kommunicateSettings = {
-        appId: "1923fe465772b674c05031428cc014d28",
-        popupWidget: true,
-        automaticChatOpenOnNavigation: true,
-      };
-      var s = document.createElement("script");
-      s.type = "text/javascript";
-      s.async = true;
-      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-      var h = document.getElementsByTagName("head")[0];
-      h.appendChild(s);
-      window.kommunicate = m;
-      m._globals = kommunicateSettings;
-    })(document, window.kommunicate || {});
-  }, []);
+  // useEffect(() => {
+  //   (function (d, m) {
+  //     var kommunicateSettings = {
+  //       appId: "1923fe465772b674c05031428cc014d28",
+  //       popupWidget: true,
+  //       automaticChatOpenOnNavigation: true,
+  //     };
+  //     var s = document.createElement("script");
+  //     s.type = "text/javascript";
+  //     s.async = true;
+  //     s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+  //     var h = document.getElementsByTagName("head")[0];
+  //     h.appendChild(s);
+  //     window.kommunicate = m;
+  //     m._globals = kommunicateSettings;
+  //   })(document, window.kommunicate || {});
+  // }, []);
 
   return (
     <footer>
@@ -31,8 +31,8 @@ const Footer = () => {
                     <h4>Về chúng tôi</h4>
                     <div class="footer-pera">
                       <p>
-                        Heaven frucvitful doesn't cover lesser dvsays appear
-                        creeping seasons so behold.
+                        Giúp đỡ hàng triệu người tìm được việc làm, góp phần
+                        giảm thiểu thất nghiệp.
                       </p>
                     </div>
                   </div>
@@ -45,13 +45,13 @@ const Footer = () => {
                   <h4>Liên Hệ</h4>
                   <ul>
                     <li>
-                      <p>Address :Your address goes here, your demo address.</p>
+                      <p>Address: 59 Giai Phong, Hanoi.</p>
                     </li>
                     <li>
-                      <a href="#">Phone : +8880 44338899</a>
+                      <a href="#">Phone : +84977923877</a>
                     </li>
                     <li>
-                      <a href="#">Email : info@colorlib.com</a>
+                      <a href="#">Email : khanhvuduyit@gmail.com</a>
                     </li>
                   </ul>
                 </div>
@@ -63,19 +63,13 @@ const Footer = () => {
                   <h4>Trang Liên Quan</h4>
                   <ul>
                     <li>
-                      <a href="#"> View Project</a>
+                      <a href="#"> Tin tuyển dụng</a>
                     </li>
                     <li>
-                      <a href="#">Contact Us</a>
+                      <a href="#">Quảng cáo</a>
                     </li>
                     <li>
-                      <a href="#">Testimonial</a>
-                    </li>
-                    <li>
-                      <a href="#">Proparties</a>
-                    </li>
-                    <li>
-                      <a href="#">Support</a>
+                      <a href="#">Liên hệ</a>
                     </li>
                   </ul>
                 </div>
@@ -86,41 +80,30 @@ const Footer = () => {
                 <div class="footer-tittle">
                   <h4>Bản Tin</h4>
                   <div class="footer-pera footer-pera2">
-                    <p>
-                      Heaven fruitful doesn't over lesser in days. Appear
-                      creeping.
-                    </p>
+                    <ul>
+                      <li>
+                        <a
+                          href="https://www.mpi.gov.vn/portal/Pages/2024-4-9/Tinh-hinh-lao-dong-viec-lam-lam-quy-I-nam-2024-l5urwe.aspx#:~:text=Trong%20qu%C3%BD%20I%2F2024%2C%20s%E1%BB%91,lao%20%C4%91%E1%BB%99ng%20c%C3%B3%20vi%E1%BB%87c%20l%C3%A0m."
+                          target="_blank"
+                        >
+                          Tình hình lao động, việc làm làm quý I năm 2024
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://vneconomy.vn/tiem-an-rui-ro-thi-truong-lao-dong-nam-2024-kho-khoi-sac.htm"
+                          target="_blank"
+                        >
+                          Tiềm ẩn rủi ro, thị trường lao động năm 2024 khó khởi
+                          sắc
+                        </a>
+                      </li>
+                    </ul>
                   </div>
 
                   <div class="footer-form">
                     <div id="mc_embed_signup">
-                      <form
-                        target="_blank"
-                        action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                        method="get"
-                        class="subscribe_form relative mail_part"
-                      >
-                        <input
-                          type="email"
-                          name="email"
-                          id="newsletter-form-email"
-                          placeholder="Email Address"
-                          class="placeholder hide-on-focus"
-                          onfocus="this.placeholder = ''"
-                          onblur="this.placeholder = ' Email Address '"
-                        />
-                        <div class="form-icon">
-                          <button
-                            type="submit"
-                            name="submit"
-                            id="newsletter-submit"
-                            class="email_icon newsletter-submit button-contactForm"
-                          >
-                            <img src="assets/img/icon/form.png" alt="" />
-                          </button>
-                        </div>
-                        <div class="mt-10 info"></div>
-                      </form>
+                      <div class="mt-10 info"></div>
                     </div>
                   </div>
                 </div>
@@ -170,11 +153,12 @@ const Footer = () => {
                     <script>
                       document.write(new Date().getFullYear());
                     </script>{" "}
-                    All rights reserved | This template is made with{" "}
+                    All rights reserved | Vu Duy Khanh
+                    {/* This template is made with{" "}
                     <i class="fa fa-heart" aria-hidden="true"></i> by{" "}
                     <a href="#" target="_blank">
                       Vu Duy Khanh
-                    </a>
+                    </a> */}
                   </p>
                 </div>
               </div>

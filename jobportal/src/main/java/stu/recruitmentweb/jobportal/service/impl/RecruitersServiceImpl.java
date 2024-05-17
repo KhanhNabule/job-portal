@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -161,6 +160,7 @@ public class RecruitersServiceImpl extends BaseService implements RecruitersServ
     @Override
     public String editJobInfo(Long id, JobRequest jobRequest) {
         Job job = jobRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Công việc không tồn tại!!!"));
+        job.setCompanyName(jobRequest.getCompanyName());
         job.setAddress(jobRequest.getAddress());
         job.setJobTitle(jobRequest.getJobTitle());
         job.setDescription(jobRequest.getDescription());
@@ -217,7 +217,14 @@ public class RecruitersServiceImpl extends BaseService implements RecruitersServ
                 pageable);
     }
 
+    @Override
+    public Page<Job> getPageJob(String title, Integer pageNo, Integer pageSize) {
+        int page = pageNo == 0 ? pageNo: pageNo - 1;
+        Pageable pageable = PageRequest.of(page, pageSize);
 
+        return mapper.convertToResponsePage(recruitmentRepositoryCustom.searchJob(title, pageable),
+                    Job.class, pageable);
+    }
 
     private User getUser(){
         return userRepository.findById(getUserId())
@@ -228,7 +235,7 @@ public class RecruitersServiceImpl extends BaseService implements RecruitersServ
     public void sendEmailFromTemplate(SendEmailRequest sendEmailRequest, String jobseekerName) throws MessagingException, IOException {
         MimeMessage message = mailSender.createMimeMessage();
 
-        message.setFrom(new InternetAddress("trungdang82678@gmail.com"));
+        message.setFrom(new InternetAddress("khanhvuviruss@gmail.com"));
         message.setRecipients(MimeMessage.RecipientType.TO, sendEmailRequest.getToEmail());
         message.setSubject(sendEmailRequest.getTitle());
 
@@ -236,7 +243,7 @@ public class RecruitersServiceImpl extends BaseService implements RecruitersServ
         String htmlTemplate = readFile("send-email.html");
 
         // Replace placeholders in the HTML template with dynamic values
-        htmlTemplate = htmlTemplate.replace("NAM NGHIEM", jobseekerName);
+        htmlTemplate = htmlTemplate.replace("DUY KHANH", jobseekerName);
         htmlTemplate = htmlTemplate.replace("DESCRIPTION", sendEmailRequest.getDescription());
 
         // Set the email's content to be the HTML template
@@ -250,4 +257,6 @@ public class RecruitersServiceImpl extends BaseService implements RecruitersServ
         byte[] encoded = Files.readAllBytes(file.toPath());
         return new String(encoded, StandardCharsets.UTF_8);
     }
+
+
 }

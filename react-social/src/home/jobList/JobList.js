@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Footer from "../Footer";
 import { getAllJobs, getCategory } from "../../util/APIUtils";
 import Pagination from "../Pagination";
+import "../Home.css";
 
 function JobList() {
   const [listJob, setListJob] = useState([]);
@@ -97,10 +98,7 @@ function JobList() {
   return (
     <main>
       <div class="slider-area ">
-        <div
-          class="single-slider section-overly slider-height2 d-flex align-items-center"
-          data-background="assets/img/hero/about.jpg"
-        >
+        <div class="single-slider section-overly slider-height2 d-flex align-items-center image-background">
           <div class="container">
             <div class="row">
               <div class="col-xl-12">
@@ -244,17 +242,23 @@ function JobList() {
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="count-job mb-35">
-                        <span>{numberOfElements} công việc</span>
+                        {/* <span>{numberOfElements} công việc</span> */}
                       </div>
                     </div>
                   </div>
                   {listJob.map((job) => {
                     if (job.status === "ENABLE") {
                       return (
-                        <div class="single-job-items mb-30">
+                        <div
+                          className="single-job-items mb-30"
+                          style={{
+                            backgroundColor: "white",
+                            borderRadius: "10px",
+                          }}
+                        >
                           <div class="job-items">
                             <div class="company-img">
-                              <Link to={`/job-detail/${job.id}`}>
+                              <a href={`/job-detail/${job.id}`}>
                                 <img
                                   src={
                                     job.recruiter.company.image === null
@@ -270,36 +274,44 @@ function JobList() {
                                         )
                                   }
                                   alt="Logo"
-                                  style={{ height: "70px", width: "70px" }}
+                                  style={{ height: "100px", width: "100px" }}
                                 />
-                              </Link>
+                              </a>
                             </div>
                             <div class="job-tittle job-tittle2">
-                              <Link to={`/job-detail/${job.id}`}>
-                                <h4>{job.jobTitle}</h4>
-                              </Link>
+                              <a href={`/job-detail/${job.id}`}>
+                                <ul>
+                                  <h4>{job.jobTitle}</h4>
+                                </ul>
+                              </a>
 
-                              <ul>
+                              <ul
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
                                 <li>{job.recruiter.company.name}</li>
+
+                                <li style={{ marginLeft: "auto" }}>
+                                  {job.minSalary} - {job.maxSalary} triệu
+                                </li>
+                              </ul>
+                              <ul>
                                 <li>
                                   <i class="fas fa-map-marker-alt"></i>
                                   {job.address}
-                                </li>
-                                <li>
-                                  {job.minSalary}VND - {job.maxSalary}VND
                                 </li>
                               </ul>
                             </div>
                           </div>
                           <div class="items-link items-link2 f-right">
-                            <Link to={`/job-detail/${job.id}`}>
-                              {job.level}
-                            </Link>
+                            <a href={`/job-detail/${job.id}`}>Xem ngay</a>
                             <span>
                               {"Hạn: " +
-                                new Date(job.deadline).getDay() +
+                                new Date(job.deadline).getDate() +
                                 " - " +
-                                new Date(job.deadline).getMonth() +
+                                (new Date(job.deadline).getMonth() + 1) +
                                 " - " +
                                 new Date(job.deadline).getFullYear()}
                             </span>

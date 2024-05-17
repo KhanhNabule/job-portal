@@ -4,7 +4,7 @@ import JobFeatures from "./JobFeatures";
 import { Link, NavLink } from "react-router-dom";
 import AdvertisementFeater from "./AdvertisementFeater";
 
-const Home = () => {
+const Home = ({ numberOfElements }) => {
   return (
     <main>
       <div className="slider-area ">
@@ -17,7 +17,14 @@ const Home = () => {
               <div className="row">
                 <div className="col-xl-6 col-lg-9 col-md-10">
                   <div className="hero__caption">
-                    <h1>Tìm kiếm một công việc phù hợp✨✨✨</h1>
+                    <h1 style={{ width: "950px" }}>
+                      Bạn muốn tìm kiếm một công việc phù hợp✨✨
+                    </h1>
+                    <Link to="/job-list">
+                      <h1 style={{ width: "900px", color: "#009643" }}>
+                        Khám phá ngay
+                      </h1>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -34,7 +41,7 @@ const Home = () => {
               <div className="section-tittle text-center">
                 {/* <span>✨✨✨</span> */}
                 <span>Công việc gần đây</span>
-                <h2>Công Việc Nổi Bật</h2>
+                <h2>Công Việc Mới Nhất</h2>
               </div>
             </div>
           </div>
@@ -43,10 +50,8 @@ const Home = () => {
       </section>
 
       {/* <!-- Online CV Area Start --> */}
-      <div
-        class="online-cv cv-bg section-overly pt-90 pb-120"
-        data-background="assets/img/gallery/cv_bg.jpg"
-      >
+
+      <div class="online-cv cv-bg section-overly pt-90 pb-120 banner-background">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-10">
@@ -57,7 +62,7 @@ const Home = () => {
                   Tạo sự khác biệt với sơ yếu lý lịch trực tuyến của bạn!{" "}
                 </p>
 
-                <Link to="/login">
+                <Link to="/cv-manager">
                   <a href="#" class="border-btn2 border-btn4">
                     Upload your cv
                   </a>
@@ -68,143 +73,50 @@ const Home = () => {
         </div>
       </div>
       {/* <!-- Online CV Area End--> */}
-
       <div class="our-services section-pad-t30">
-        <div class="container">
-          {/* <!-- Section Tittle --> */}
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="section-tittle text-center">
-                {/* <span>FEATURED TOURS Packages</span> */}
-                <h2>Top ngành nghề nổi bật </h2>
-              </div>
-            </div>
-          </div>
-          <div class="row d-flex justify-contnet-center">
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-tour"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Design & Creative</a>
-                  </h5>
-                  {/* <span>(653)</span> */}
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-cms"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Design & Development</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
+        <div className="support-company-area support-padding fix">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-xl-6 col-lg-6">
+                <div className="right-caption">
+                  <div className="section-tittle section-tittle2">
+                    <span>Chúng tôi đang làm gì</span>
+                    <h2>Nơi tìm kiếm việc làm</h2>
+                  </div>
+                  <div className="support-caption">
+                    <p className="pera-top">
+                      Nơi cơ hội dành cho mọi người, góp phần tăng số lượng
+                      những người có việc làm một cách nhanh nhất
+                    </p>
+                    <p style={{ fontSize: "20px" }}>
+                      Hãy đăng kí nhà tuyển dụng để tìm tới những ứng viên tài
+                      năng
+                    </p>
+
+                    <Link
+                      className="btn btn-primary head-btn2"
+                      to="/login-recruiter"
+                    >
+                      Đăng Tuyển
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-report"></span>
+              <div className="col-xl-6 col-lg-6">
+                <div className="support-location-img">
+                  <img src="assets/img/service/support-img.jpg" alt="" />
+                  <div className="support-img-cap text-center">
+                    <p>Since</p>
+                    <span>2024</span>
+                  </div>
                 </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Sales & Marketing</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-app"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Mobile Application</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-helmet"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Construction</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-high-tech"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Information Technology</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-real-estate"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Real Estate</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-              <div class="single-services text-center mb-30">
-                <div class="services-ion">
-                  <span class="flaticon-content"></span>
-                </div>
-                <div class="services-cap">
-                  <h5>
-                    <a href="job_listing.html">Content Writer</a>
-                  </h5>
-                  {/* <span>(658)</span> */}
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <!-- More Btn -->
-                <!-- Section Button --> */}
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="browse-btn2 text-center mt-50">
-                <a href="job_listing.html" class="border-btn2">
-                  Browse All Sectors
-                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <!-- Our Services End --> */}
 
-      <div
-        className="apply-process-area apply-bg pt-150 pb-150"
-        data-background="assets/img/gallery/how-applybg.png"
-      >
+      <div className="apply-process-area apply-bg pt-150 pb-150 apply-background">
         <div className="container">
           <div class="row">
             <div class="col-lg-12">
@@ -232,8 +144,8 @@ const Home = () => {
                   <span className="flaticon-curriculum-vitae"></span>
                 </div>
                 <div className="process-cap">
-                  <h5>2. Ứng tuyển công việc</h5>
-                  <p>Tốc độ siêu nhanh</p>
+                  <h5>2. Phù hợp với bạn</h5>
+                  <p>Hợp tính cách, tầm hồn và bản thân</p>
                 </div>
               </div>
             </div>
@@ -243,46 +155,8 @@ const Home = () => {
                   <span className="flaticon-tour"></span>
                 </div>
                 <div className="process-cap">
-                  <h5>3. Phù hợp với bạn</h5>
-                  <p>Hợp tính cách, tầm hồn và bản thân</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="support-company-area support-padding fix">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-6 col-lg-6">
-              <div className="right-caption">
-                <div className="section-tittle section-tittle2">
-                  <span>Chúng tôi đang làm gì</span>
-                  <h2>Nơi tìm kiếm việc làm</h2>
-                </div>
-                <div className="support-caption">
-                  <p className="pera-top">
-                    Nơi cơ hội dành cho mọi người, góp phần tăng số lương nhưng
-                    người có việc làm một cách nhanh nhất
-                  </p>
-                  <p>
-                    Hãy đăng kí nhà tuyển dụng để tìm tới những ứng viên tài
-                    năng
-                  </p>
-
-                  <Link className="btn post-btn" to="/login-recruiter">
-                    Đăng Tuyển
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-6 col-lg-6">
-              <div className="support-location-img">
-                <img src="assets/img/service/support-img.jpg" alt="" />
-                <div className="support-img-cap text-center">
-                  <p>Since</p>
-                  <span>2023</span>
+                  <h5>3. Ứng tuyển công việc</h5>
+                  <p>Tốc độ siêu nhanh</p>
                 </div>
               </div>
             </div>
@@ -304,6 +178,7 @@ const Home = () => {
           <AdvertisementFeater />
         </div>
       </div>
+
       <Footer />
     </main>
   );

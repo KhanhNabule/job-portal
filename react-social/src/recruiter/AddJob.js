@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Nav from './Nav';
-import { Link, Redirect } from 'react-router-dom'
-import SidebarNav from './SidebarNav';
+import Nav from "./Nav";
+import { Link, Redirect } from "react-router-dom";
+import SidebarNav from "./SidebarNav";
 import { addNewJob, getCategory } from "../util/APIUtils";
 import Alert from "react-s-alert";
 
 const AddJob = (props) => {
+  const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [level, setLevel] = useState("");
   const [typesOfCV, setTypesOfCV] = useState("");
@@ -18,15 +19,16 @@ const AddJob = (props) => {
   const [welfare, setWelfare] = useState("");
   const [language, setLanguage] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [listAdvertisment,setListAdvertisment] = useState([]);
+  const [listAdvertisment, setListAdvertisment] = useState([]);
 
   useEffect(() => {
     getCategory(1, 1000)
-      .then(response => {
+      .then((response) => {
         console.log("Response:", response);
         // Update the state with the fetched category data
         setListAdvertisment(response.content);
-      }).catch(error => {
+      })
+      .catch((error) => {
         // Handle error
         console.log(error);
       });
@@ -38,6 +40,9 @@ const AddJob = (props) => {
     const inputValue = target.value;
 
     switch (inputName) {
+      case "companyName":
+        setCompanyName(inputValue);
+        break;
       case "jobTitle":
         setJobTitle(inputValue);
         break;
@@ -81,8 +86,26 @@ const AddJob = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (
+      !companyName ||
+      !jobTitle ||
+      !level ||
+      !address ||
+      !category ||
+      !minSalary ||
+      !maxSalary ||
+      !description ||
+      !requireJob ||
+      !welfare ||
+      !language ||
+      !deadline
+    ) {
+      Alert.error("Vui lòng nhập đầy đủ thông tin!");
+      return; // Thoát khỏi hàm nếu thông tin không đầy đủ
+    }
 
     const jobRequest = {
+      companyName,
       jobTitle,
       level,
       typesOfCV,
@@ -94,23 +117,25 @@ const AddJob = (props) => {
       requireJob,
       welfare,
       language,
-      deadline
+      deadline,
     };
 
     addNewJob(jobRequest)
-      .then(response => {
-        // Handle success
-      }).catch(error => {
-        Alert.success("Cập nhật thông tin thành công!!");
+      .then((response) => {})
+      .catch((error) => {
+        Alert.success("Đăng tin tuyển dụng thành công");
       });
   };
 
   if (!props.authenticated || props.roleName !== "ROLE_RECRUITER") {
-    return <Redirect
-      to={{
-        pathname: "/login-recruiter",
-        state: { from: props.location }
-      }} />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/login-recruiter",
+          state: { from: props.location },
+        }}
+      />
+    );
   }
 
   return (
@@ -129,7 +154,9 @@ const AddJob = (props) => {
 
         <main className="content">
           <div className="container-fluid p-0">
-            <h1 className="h3 mb-3"><strong>Dashboard</strong></h1>
+            <h1 className="h3 mb-3">
+              <strong>Dashboard</strong>
+            </h1>
             <div className="card">
               <div className="card-header">
                 <h5 className="card-title">Thêm công việc</h5>
@@ -138,74 +165,196 @@ const AddJob = (props) => {
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="mb-3 col-md-6">
-                      <label className="form-label" htmlFor="inputEmail4">Tên Công Việc</label>
-                      <input type="text" className="form-control" id="inputEmail4" name="jobTitle" value={jobTitle} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputCompany">
+                        Tên Công ty
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputCompany"
+                        name="companyName"
+                        value={companyName}
+                        onChange={handleInputChange}
+                      />
                     </div>
                     <div className="mb-3 col-md-6">
-                      <label className="form-label" htmlFor="inputPassword4">Level</label>
-                      <input type="text" className="form-control" id="inputPassword4" name="level" value={level} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputEmail4">
+                        Tên Công Việc
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputEmail4"
+                        name="jobTitle"
+                        value={jobTitle}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="mb-3 col-md-6">
+                      <label className="form-label" htmlFor="inputPassword4">
+                        Kinh nghiệm
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputPassword4"
+                        name="level"
+                        value={level}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
                   <div className="row">
-                    <div className="mb-3 col-md-6">
+                    {/* <div className="mb-3 col-md-6">
                       <label className="form-label" htmlFor="inputAddress">Loại Hình CV</label>
                       <input type="text" className="form-control" id="inputAddress" name="typesOfCV" value={typesOfCV} onChange={handleInputChange} />
-                    </div>
+                    </div> */}
                     <div className="mb-3 col-md-6">
-                      <label className="form-label" htmlFor="inputAddress2">Địa Chỉ</label>
-                      <input type="text" className="form-control" id="inputAddress2" name="address" value={address} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputAddress2">
+                        Địa Chỉ
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputAddress2"
+                        name="address"
+                        value={address}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
                   <div className="row">
                     <div className="mb-3 col-md-6">
-                      <label className="form-label" htmlFor="inputCity">Danh Mục</label>
-                      <select className="form-select" id="inputCity" name="category" value={category} onChange={handleInputChange}>
+                      <label className="form-label" htmlFor="inputCity">
+                        Danh Mục
+                      </label>
+                      <select
+                        className="form-select"
+                        id="inputCity"
+                        name="category"
+                        value={category}
+                        onChange={handleInputChange}
+                      >
                         <option value="">-- Chọn danh mục --</option>
                         {/* Map over the category data and render options */}
                         {listAdvertisment.map((category) => (
-                          <option key={category.id} value={category.id}>{category.name}</option>
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
                         ))}
                       </select>
                     </div>
                     <div className="mb-3 col-md-3">
-                      <label className="form-label" htmlFor="inputZip">Lương Tối Thiểu</label>
-                      <input type="number" className="form-control" id="inputZip" name="minSalary" value={minSalary} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputZip">
+                        Lương Tối Thiểu
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="inputZip"
+                        name="minSalary"
+                        value={minSalary}
+                        onChange={handleInputChange}
+                      />
                     </div>
                     <div className="mb-3 col-md-3">
-                      <label className="form-label" htmlFor="inputZip">Lương Tối Đa</label>
-                      <input type="number" className="form-control" id="inputZip" name="maxSalary" value={maxSalary} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputZip">
+                        Lương Tối Đa
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        id="inputZip"
+                        name="maxSalary"
+                        value={maxSalary}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
                   <div className="row">
                     <div className="mb-3 col-md-12">
-                      <label className="form-label" htmlFor="inputAddress2">Mô Tả</label>
-                      <textarea className="form-control" id="inputAddress2" rows="3" name="description" value={description} onChange={handleInputChange}></textarea>
+                      <label className="form-label" htmlFor="inputAddress2">
+                        Mô Tả
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="inputAddress2"
+                        name="description"
+                        value={description}
+                        onChange={handleInputChange}
+                        rows="5"
+                      ></textarea>
                     </div>
                   </div>
                   <div className="row">
                     <div className="mb-3 col-md-12">
-                      <label className="form-label" htmlFor="inputAddress2">Yêu Cầu Công Việc</label>
-                      <textarea className="form-control" id="inputAddress2" rows="3" name="requireJob" value={requireJob} onChange={handleInputChange}></textarea>
+                      <label className="form-label" htmlFor="inputAddress2">
+                        Yêu Cầu Công Việc
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="inputAddress2"
+                        name="requireJob"
+                        value={requireJob}
+                        onChange={handleInputChange}
+                        rows="5"
+                      ></textarea>
                     </div>
                   </div>
                   <div className="row">
                     <div className="mb-3 col-md-12">
-                      <label className="form-label" htmlFor="inputAddress2">Phúc Lợi</label>
-                      <textarea className="form-control" id="inputAddress2" rows="3" name="welfare" value={welfare} onChange={handleInputChange}></textarea>
+                      <label className="form-label" htmlFor="inputAddress2">
+                        Phúc Lợi
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="inputAddress2"
+                        name="welfare"
+                        value={welfare}
+                        onChange={handleInputChange}
+                        rows="5"
+                      ></textarea>
                     </div>
                   </div>
                   <div className="row">
                     <div className="mb-3 col-md-6">
-                      <label className="form-label" htmlFor="inputAddress2">Ngôn Ngữ</label>
-                      <input type="text" className="form-control" id="inputAddress2" name="language" value={language} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputAddress2">
+                        Ngôn Ngữ
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputAddress2"
+                        name="language"
+                        value={language}
+                        onChange={handleInputChange}
+                      />
                     </div>
                     <div className="mb-3 col-md-6">
-                      <label className="form-label" htmlFor="inputAddress2">Hạn Nộp</label>
-                      <input type="datetime-local" className="form-control" id="inputAddress2" name="deadline" value={deadline} onChange={handleInputChange} />
+                      <label className="form-label" htmlFor="inputAddress2">
+                        Hạn Nộp
+                      </label>
+                      <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="inputAddress2"
+                        name="deadline"
+                        value={deadline}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
-                  <button type="submit" className="btn btn-primary">Thêm</button>
-                  <Link to="/recruiter/manager-job" className="btn btn-secondary ms-2">Hủy</Link>
+
+                  <button type="submit" className="btn btn-primary">
+                    Thêm
+                  </button>
+
+                  <Link
+                    to="/recruiter/manager-job"
+                    className="btn btn-secondary ms-2"
+                  >
+                    Hủy
+                  </Link>
                 </form>
               </div>
             </div>

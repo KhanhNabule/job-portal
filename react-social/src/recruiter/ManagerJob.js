@@ -6,6 +6,7 @@ import {
   delete2JobById,
   deleteJobById,
   getAllJobOfRecruiterById,
+  getJob,
 } from "../util/APIUtils";
 import ModalBigContent from "../admin/modal/ModalBigContent";
 import Alert from "react-s-alert";
@@ -16,11 +17,35 @@ class ManagerJob extends React.Component {
     this.state = {
       listJob: [],
       jobId: "",
+      keyword: "",
     };
-
+    this.handleInputChange = this.loadJob2.bind(this);
     this.loadJob = this.loadJob.bind(this);
   }
+  loadJob2() {
+    getJob(1, 1000, this.state.keyword)
+      .then((response) => {
+        console.log("Response:", response);
+        this.setState({
+          listJob: response.content,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          loading: false,
+        });
+      });
+  }
 
+  handleInputChange(event) {
+    const target = event.target;
+    const inputName = target.name;
+    const inputValue = target.value;
+
+    this.setState({
+      [inputName]: inputValue,
+    });
+  }
   loadJob() {
     getAllJobOfRecruiterById()
       .then((response) => {
@@ -49,18 +74,24 @@ class ManagerJob extends React.Component {
     deleteJobById(id)
       .then()
       .catch((message) => {
-        Alert.success("Ẩn công việc thành công");
+        Alert.success("Thay đổi trạng thái công việc thành công");
         this.loadJob();
       });
   };
 
   handleDelete2ById = (id) => {
-    delete2JobById(id)
-      .then()
-      .catch((message) => {
-        Alert.success("Xóa công việc thành công");
-        this.loadJob();
-      });
+    // Hiển thị hộp thoại xác nhận
+    const isConfirmed = window.confirm("Bạn có muốn xóa công việc này không?");
+
+    // Nếu người dùng đã xác nhận, thực hiện xóa
+    if (isConfirmed) {
+      delete2JobById(id)
+        .then()
+        .catch((message) => {
+          Alert.success("Xoá công việc thành công");
+          this.loadJob();
+        });
+    }
   };
 
   componentDidMount() {
@@ -84,7 +115,7 @@ class ManagerJob extends React.Component {
       <div className="wrapper">
         <nav id="sidebar" className="sidebar js-sidebar">
           <div className="sidebar-content js-simplebar">
-            <a className="sidebar-brand" href="index.html">
+            <a className="sidebar-brand" href="/recruiter">
               <span className="align-middle">Nhà Tuyển Dụng</span>
             </a>
             <SidebarNav />
@@ -104,12 +135,21 @@ class ManagerJob extends React.Component {
             <div class="card">
               <div class="card-header">
                 <h5 class="card-title">Quản lý công việc</h5>
+
+                {/* <input
+                  type="text"
+                  class="form-control"
+                  name="keyword"
+                  value={this.state.keyword}
+                  onChange={this.handleInputChange}
+                /> */}
               </div>
               <table class="table">
                 <thead>
                   <tr>
-                    <th style={{ width: "30%" }}>Tên Công Việc</th>
-                    <th style={{ width: "15%" }}>Level</th>
+                    <th style={{ width: "20%" }}>Tên Công ty</th>
+                    <th style={{ width: "20%" }}>Tên Công Việc</th>
+                    <th style={{ width: "10%" }}>Kinh nghiệm</th>
                     <th style={{ width: "15%" }}>Danh Mục</th>
                     <th class="d-none d-md-table-cell" style={{ width: "15%" }}>
                       Địa Chỉ
@@ -122,6 +162,7 @@ class ManagerJob extends React.Component {
                   {list.map((job) => {
                     return (
                       <tr>
+                        <td>{job.companyName}</td>
                         <td>{job.jobTitle}</td>
                         <td>{job.level}</td>
                         <td>{job.category && job.category.name}</td>
@@ -152,7 +193,7 @@ class ManagerJob extends React.Component {
                             </svg>
                           </a>
                           &nbsp;&nbsp;
-                          <a
+                          {/* <a
                             href="#"
                             onClick={() => this.handleGetId(job.id)}
                             data-toggle="modal"
@@ -166,7 +207,7 @@ class ManagerJob extends React.Component {
                               <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                             </svg>{" "}
                           </a>
-                          &nbsp;&nbsp;
+                          &nbsp;&nbsp; */}
                           <a
                             href="#"
                             onClick={() => this.handleDeleteById(job.id)}

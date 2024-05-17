@@ -188,7 +188,7 @@ public class JobseekerServiceImpl extends BaseService implements JobseekerServic
     public void sendEmailFromTemplate(ContactRequest contactRequest) throws MessagingException, IOException {
         MimeMessage message = mailSender.createMimeMessage();
 
-        message.setFrom(new InternetAddress("trungdang82678@gmail.com"));
+        message.setFrom(new InternetAddress("khanhvuviruss@gmail.com"));
 
         message.setRecipients(MimeMessage.RecipientType.TO, contactRequest.getToEmail());
         message.setSubject(contactRequest.getSubject());
@@ -197,7 +197,7 @@ public class JobseekerServiceImpl extends BaseService implements JobseekerServic
         String htmlTemplate = readFile("send-email.html");
 
         // Replace placeholders in the HTML template with dynamic values
-        htmlTemplate = htmlTemplate.replace("NAM NGHIEM", contactRequest.getName());
+        htmlTemplate = htmlTemplate.replace("DUY KHANH", contactRequest.getName());
         htmlTemplate = htmlTemplate.replace("DESCRIPTION", contactRequest.getDescription());
 
         // Set the email's content to be the HTML template

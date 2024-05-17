@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import stu.recruitmentweb.jobportal.domain.models.Job;
 import stu.recruitmentweb.jobportal.domain.payload.response.RecruitmentResponse;
 import stu.recruitmentweb.jobportal.service.JobseekerService;
 import stu.recruitmentweb.jobportal.service.RecruitersService;
@@ -36,5 +37,12 @@ public class RecruitmentController {
                                                                                     @RequestParam Integer pageNo,
                                                                                     @RequestParam Integer pageSize){
         return ResponseEntity.ok(jobseekerService.getRecruitmentOfSeeker(createAt, isAnswer, jobName, pageNo, pageSize));
+    }
+
+    @GetMapping("/job")
+    private ResponseEntity<Page<Job>> getPageJob(@RequestParam(required = false) String title,
+                                                 @RequestParam Integer pageNo,
+                                                 @RequestParam Integer pageSize) {
+        return ResponseEntity.ok(recruitersService.getPageJob(title, pageNo, pageSize));
     }
 }

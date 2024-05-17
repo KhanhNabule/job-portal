@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class JobResponse {
     private Long id;
+    private String companyName;
     private String jobTitle;
     private String level;
     private String typesOfCV;

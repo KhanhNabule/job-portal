@@ -2,6 +2,7 @@ package stu.recruitmentweb.jobportal.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
+import stu.recruitmentweb.jobportal.domain.models.Job;
 import stu.recruitmentweb.jobportal.domain.payload.request.JobRequest;
 import stu.recruitmentweb.jobportal.domain.payload.request.RecruiterUpdateRequest;
 import stu.recruitmentweb.jobportal.domain.payload.request.SendEmailRequest;
@@ -35,4 +36,6 @@ public interface RecruitersService {
     MessageResponse editProfileOfRecruiter(String recruiterAddress, String recruiterPhone, String skypeAccount, String workplace, String companyAddress, String companyName, String description, MultipartFile image, Integer personalSize, String website);
 
     void delete2Job(Long id);
+
+    Page<Job> getPageJob(String title, Integer pageNo, Integer pageSize);
 }

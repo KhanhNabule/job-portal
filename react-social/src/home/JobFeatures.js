@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { getAllJobs } from "../util/APIUtils";
 
@@ -14,11 +14,15 @@ class JobFeatures extends React.Component {
   }
 
   loadJob() {
-    getAllJobs(1, 5, "", "", "", "", "", "")
+    getAllJobs(1, 100, "", "", "", "", "", "") // Lấy tất cả công việc
       .then((response) => {
         console.log("Response:", response);
+        // Sắp xếp danh sách công việc theo ID giảm dần
+        const sortedJobs = response.content
+          .sort((a, b) => b.id - a.id)
+          .slice(0, 3);
         this.setState({
-          listJob: response.content,
+          listJob: sortedJobs,
         });
       })
       .catch((error) => {
@@ -27,75 +31,87 @@ class JobFeatures extends React.Component {
         });
       });
   }
+
   monthOf(date) {
     return date.getMonth() + 1;
   }
+
   componentDidMount() {
     this.loadJob();
   }
-  render() {
-    let list = this.state.listJob;
-    list.map((job) => console.log(job));
-    return (
-      <div class="row justify-content-center">
-        <div class="col-xl-10">
-          {list.map((job) => {
-            if (job.status === "ENABLE") {
-              return (
-                <div class="single-job-items mb-30">
-                  <div class="job-items">
-                    <div class="company-img">
-                      <Link to={`/job-detail/${job.id}`}>
-                        <img
-                          src={
-                            job.recruiter.company.image === null
-                              ? ""
-                              : job.recruiter.company.image.indexOf("http") !==
-                                -1
-                              ? job.recruiter.company.image
-                              : `http://localhost:8080/image/` +
-                                job.recruiter.company.image.replace(
-                                  "photographer/files/",
-                                  ""
-                                )
-                          }
-                          alt="Logo"
-                          style={{ height: "80px", width: "80px" }}
-                        />
-                      </Link>
-                    </div>
-                    <div class="job-tittle job-tittle2">
-                      <Link to={`/job-detail/${job.id}`}>
-                        <h4>{job.jobTitle}</h4>
-                      </Link>
 
-                      <ul>
-                        <li>{job.recruiter.company.name}</li>
-                        <li>
-                          <i class="fas fa-map-marker-alt"></i>
-                          {job.address}
-                        </li>
-                        <li>
-                          {job.minSalary}VND - {job.maxSalary}VND
-                        </li>
-                      </ul>
+  render() {
+    const { listJob } = this.state;
+
+    return (
+      <div className="row justify-content-center">
+        <div className="col-xl-10">
+          {listJob.map((job) => (
+            <div
+              className="single-job-items mb-30"
+              style={{
+                backgroundColor: "white",
+                borderRadius: "10px",
+              }}
+              key={job.id}
+            >
+              <div className="job-items">
+                <div className="company-img">
+                  <a href={`/job-detail/${job.id}`}>
+                    <div>
+                      <img
+                        src={
+                          job.recruiter.company.image === null
+                            ? ""
+                            : job.recruiter.company.image.indexOf("http") !== -1
+                            ? job.recruiter.company.image
+                            : `http://localhost:8080/image/` +
+                              job.recruiter.company.image.replace(
+                                "photographer/files/",
+                                ""
+                              )
+                        }
+                        alt="Logo"
+                        style={{ height: "100px", width: "100px" }}
+                      />
                     </div>
-                  </div>
-                  <div class="items-link items-link2 f-right">
-                    <Link to={`/job-detail/${job.id}`}>{job.level}</Link>
-                    <span>
-                      {"Hạn: " +
-                        new Date(job.deadline).getDate() +
-                        " - " +
-                        this.monthOf(new Date(job.deadline)) +
-                        " - " +
-                        new Date(job.deadline).getFullYear()}
-                    </span>
-                  </div>
+                  </a>
                 </div>
-              );
-            }
-          })}
+                <div className="job-tittle job-tittle2">
+                  <a href={`/job-detail/${job.id}`}>
+                    <ul>
+                      <h3>{job.jobTitle}</h3>
+                    </ul>
+                  </a>
+
+                  <ul style={{ display: "flex", alignItems: "center" }}>
+                    <li>{job.recruiter.company.name}</li>
+
+                    <li style={{ marginLeft: "auto" }}>
+                      {job.minSalary} - {job.maxSalary} triệu
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <i className="fas fa-map-marker-alt"></i>
+                      {job.address}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="items-link items-link2 f-right">
+                <a href={`/job-detail/${job.id}`}>Xem ngay</a>
+                <span>
+                  {"Hạn: " +
+                    new Date(job.deadline).getDate() +
+                    " - " +
+                    this.monthOf(new Date(job.deadline)) +
+                    " - " +
+                    new Date(job.deadline).getFullYear()}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );

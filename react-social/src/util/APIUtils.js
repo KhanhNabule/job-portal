@@ -267,7 +267,18 @@ export function getRecruiter() {
     method: "GET",
   });
 }
-
+export function getJob(pageNo, pageSize, title) {
+  return request({
+    url:
+      API_BASE_URL +
+      "/recruitment/job?pageNo=" +
+      pageNo +
+      "&pageSize=" +
+      "&title=" +
+      title,
+    method: "GET",
+  });
+}
 export function getAdvertisement(pageNo, pageSize, title) {
   return request({
     url:

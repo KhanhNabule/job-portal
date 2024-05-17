@@ -4,7 +4,7 @@ import Nav from "./Nav";
 import Alert from "react-s-alert";
 import { editInfo, editInfoRecruiter, getRecruiter } from "../util/APIUtils";
 import FileService from "../user/service/FileService";
-
+import ManagerRecruiter from "../user/profile/ManagerRecruiter";
 class ProfileRecruiter extends React.Component {
   constructor(props) {
     super(props);
@@ -76,6 +76,22 @@ class ProfileRecruiter extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    if (
+      !this.state.recruiterAddress ||
+      !this.state.recruiterPhone ||
+      !this.state.skypeAccount ||
+      !this.state.workplace ||
+      !this.state.companyAddress ||
+      !this.state.companyName ||
+      !this.state.description ||
+      !this.state.image ||
+      !this.state.website ||
+      !this.state.personalSize ||
+      !this.state.files
+    ) {
+      Alert.error("Vui lòng nhập đủ thông tin");
+      return;
+    }
     if (!this.validatePhone(this.state.recruiterPhone)) {
       Alert.success("Số điện thoại không hợp lệ");
     } else {
@@ -128,7 +144,6 @@ class ProfileRecruiter extends React.Component {
               <h1 className="h3 mb-3">
                 <strong>Thông tin cá nhân</strong>
               </h1>
-
               <div className="profile-info">
                 <div className="profile-avatar"></div>
                 <div className="profile-name">
@@ -167,7 +182,7 @@ class ProfileRecruiter extends React.Component {
                           type="text"
                           className="form-control"
                           name="phone"
-                          value={this.state.phone}
+                          value={this.state.recruiterPhone}
                           onChange={this.handleInputChange}
                           id="inputPassword4"
                           placeholder="Số điện thoại"
@@ -231,7 +246,7 @@ class ProfileRecruiter extends React.Component {
                       />
                     </div>
                     <div className="or-separator">
-                      <span>Thông tin Công ty*</span>
+                      <strong>Thông tin Công ty*</strong>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="inputAddress">
@@ -277,11 +292,8 @@ class ProfileRecruiter extends React.Component {
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Tải Logo</label>
+
                       <br />
-                      <br />
-                      {/* <img
-                                                src={this.state.image && this.state.image.indexOf("http") !== -1 ? this.state.image : `http://localhost:8080/image/` + this.state.image.replace('photographer/files/', '')}
-                                                alt="Logo" style={{ height: "100px", width: "100px" , marginBottom: "5px"}} /> */}
                       <img
                         src={
                           this.state.image

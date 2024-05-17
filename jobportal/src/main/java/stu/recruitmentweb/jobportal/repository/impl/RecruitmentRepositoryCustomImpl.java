@@ -3,6 +3,7 @@ package stu.recruitmentweb.jobportal.repository.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import stu.recruitmentweb.jobportal.domain.models.Job;
 import stu.recruitmentweb.jobportal.domain.models.Recruitment;
 import stu.recruitmentweb.jobportal.repository.BaseRepository;
 import stu.recruitmentweb.jobportal.repository.RecruitmentRepositoryCustom;
@@ -22,7 +23,26 @@ public class RecruitmentRepositoryCustomImpl implements RecruitmentRepositoryCus
     private final static String JOIN_JOBSEEKER = "inner join tbl_jobseeker tj on tr.jobseeker_id = tj.id ";
     private final static String JOIN_JOB = "inner join tbl_job tj2 on tr.job_id = tj2.id ";
 
+    private final static String JOIN_TABLE_JOB = "from tbl_job tj";
 
+    @Override
+    public Page<Job> searchJob(String name, Pageable pageable) {
+        StringBuilder strQuery = new StringBuilder();
+        strQuery.append(JOIN_TABLE_JOB);
+        strQuery.append("WHERE 1=1=");
+
+        Map<String, Object> params = new HashMap<>();
+        if(Objects.nonNull(name)) {
+            strQuery.append(" AND tj.job_title LIKE :job_title");
+            params.put("job_title", "%" +name+"%");
+        }
+
+        String strSelectQuery = "SELECT * " + strQuery;
+
+        String strCountQuery = "SELECT COUNT(DISTINCT tj.id)" + strQuery;
+
+        return BaseRepository.getPagedNativeQuery(em, strSelectQuery, strCountQuery, params, pageable, Job.class);
+    }
     @Override
     public Page<Recruitment> getRecruitmentOfRecruiter(Pageable pageable, String createAt,Long jobseekerId, Long recruiterId,Boolean isAnswer, String jobName) {
         StringBuilder strQuery = new StringBuilder();
@@ -65,4 +85,6 @@ public class RecruitmentRepositoryCustomImpl implements RecruitmentRepositoryCus
 
         return BaseRepository.getPagedNativeQuery(em,strSelectQuery, strCountQuery, params, pageable, Recruitment.class);
     }
+
+
 }
