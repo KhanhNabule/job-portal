@@ -5,9 +5,8 @@ management:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/timviec?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: ecommerceapp
-    password: ecommerceapp
-
+    username: root
+    password: autoupad
   jpa:
     show-sql: true
     hibernate:
@@ -57,7 +56,8 @@ spring:
           starttls:
             enable: true
 file:
-  uploadDir: /hdd/data/photographer/upload/
+#  uploadDir: /hdd/data/photographer/upload/
+  uploadDir: D:/job-portal/image/
   tempExportExcel: /hdd/data/photographer/tmp/
   libreOfficePath: /hdd/setup/libreoffice/opt/libreoffice6.4/program/
 app:
@@ -65,7 +65,7 @@ app:
     tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
     tokenExpirationMsec: 864000000
   cors:
-    allowedOrigins: http://localhost:3000,http://localhost:8080
+    allowedOrigins: http://localhost,http://localhost:3000,http://nginx,http://localhost:8080
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect

@@ -1,0 +1,38 @@
+services:
+  nginx:
+    image: nginx:1.23.3
+    ports:
+      - 80:80
+    volumes:
+      - ../react-social/build:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  db-mysql:
+    image: mysql:5.7.40
+    restart: always
+    environment:
+        - MYSQL_DATABASE=jobportal
+        - MYSQL_ROOT_PASSWORD=autoupad
+    ports:
+      - "3307:3306"
+    expose:
+      - "3306"
+
+  backend-spring:
+    build:
+        context: ../jobportal
+        dockerfile: Dockerfile
+    ports:
+        - "8080:8080"
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/jobportal
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=autoupad
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+        - HOIDANIT_UPLOAD_FILE_BASE_URI=file:///uploads/
+    depends_on:
+        - db-mysql
+    volumes:
+        - ../upload-docker/:/uploads/
+
+# docker compose -p khanh-jobportal up -d

@@ -1,3 +1,0 @@
-Trong tương lai, ứng dụng sẽ cập nhật thêm một số tính năng mới nhằm tăng trải nghiệm người dùng như:
-- Cho phép người dùng đăng kí tài khoản nâng cao, CV của người dùng sẽ được hiển thị nhiều hơn với nhà tuyển dụng.
-- Ứng dụng AI để phân tích mức độ phù hợp công việc cho người dùng
